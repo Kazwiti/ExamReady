@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - StudyAI Zambia</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-container">
+    <h1>StudyAI Zambia</h1>
+    <button class="btn logout" id="logoutBtn">Logout</button>
+  </div>
+</header>
+
+<main class="dashboard">
+  <h2>Select Your Subject</h2>
+  <div class="subject-cards">
+    <div class="card" data-subject="biology">Biology</div>
+    <div class="card" data-subject="mathematics">Mathematics</div>
+    <div class="card" data-subject="english">English</div>
+    <div class="card" data-subject="chemistry">Chemistry</div>
+    <div class="card" data-subject="physics">Physics</div>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 StudyAI Zambia | Version 1.0</p>
+</footer>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDWa1UbqDd3VRGyGWn77j7IvouJaM5tUGs",
+    authDomain: "examready-7413e.firebaseapp.com",
+    projectId: "examready-7413e",
+    storageBucket: "examready-7413e.firebasestorage.app",
+    messagingSenderId: "914100635877",
+    appId: "1:914100635877:web:caa3b48e18c16bd7ddec0c"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Auto redirect if not logged in
+  auth.onAuthStateChanged(user => {
+    if (!user) window.location.href = "login.html";
+  });
+
+  // Logout
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  });
+
+  // Open subject
+  document.querySelectorAll('.subject-cards .card').forEach(card => {
+    card.addEventListener('click', () => {
+      const subject = card.getAttribute('data-subject');
+      window.location.href = subject + ".html";
+    });
+  });
+</script>
+
+</body>
+</html>
