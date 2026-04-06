@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Study Mode - ExamReady</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>AI Study Mode</h1>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+  <main>
+    <p>Upload your notes and get AI-generated summaries and practice questions.</p>
+
+    <div class="upload-section">
+      <input type="file" id="notesUpload" accept=".txt,.docx,.pdf">
+      <button id="uploadBtn">Upload Notes</button>
+    </div>
+
+    <div class="summary-section">
+      <h2>Summary</h2>
+      <div id="summaryOutput">Your AI-generated summary will appear here.</div>
+    </div>
+
+    <div class="questions-section">
+      <h2>Practice Questions</h2>
+      <div id="questionsOutput">Generated questions will appear here.</div>
+    </div>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Only allow logged-in users
+    firebase.auth().onAuthStateChanged(user => {
+      if(!user) window.location.href = 'login.html';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      firebase.auth().signOut().then(() => window.location.href='login.html');
+    });
+
+    // Placeholder for future AI integration
+    document.getElementById('uploadBtn').addEventListener('click', () => {
+      const fileInput = document.getElementById('notesUpload');
+      if(fileInput.files.length === 0){
+        alert('Please select a file first.');
+        return;
+      }
+      alert('File uploaded! AI summary will be generated here (future).');
+      // Future: send file to AI system and populate #summaryOutput and #questionsOutput
+    });
+  </script>
+</body>
+</html>

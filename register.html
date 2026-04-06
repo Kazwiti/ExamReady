@@ -4,72 +4,25 @@
   <meta charset="UTF-8">
   <title>Register - ExamReady</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Firebase SDK -->
+</head>
+<body>
+  <header>
+    <h1>Register</h1>
+  </header>
+  <main>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Register</button>
+      <p>Already have an account? <a href="login.html">Login</a></p>
+    </form>
+  </main>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-</head>
-<body>
-
-<header>
-  <div class="header-container">
-    <h1>ExamReady</h1>
-  </div>
-</header>
-
-<main class="form-container">
-  <h2>Register</h2>
-  <input type="text" placeholder="Full Name" id="name">
-  <input type="email" placeholder="Email" id="email">
-  <input type="password" placeholder="Password" id="password">
-  <button class="btn" id="registerBtn">Register</button>
-  <p>Already have an account? <a href="login.html">Login</a></p>
-</main>
-
-<footer>
-  <p>© 2026 ExamReady Zambia | Version 1.0</p>
-</footer>
-
-<script>
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDWa1UbqDd3VRGyGWn77j7IvouJaM5tUGs",
-    authDomain: "examready-7413e.firebaseapp.com",
-    projectId: "examready-7413e",
-    storageBucket: "examready-7413e.firebasestorage.app",
-    messagingSenderId: "914100635877",
-    appId: "1:914100635877:web:caa3b48e18c16bd7ddec0c"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  document.getElementById('registerBtn').addEventListener('click', async () => {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-
-    if (!name || !email || !password) return alert("All fields are required");
-
-    try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const uid = userCredential.user.uid;
-
-      // Save user profile in Firestore
-      await db.collection('users').doc(uid).set({
-        name: name,
-        email: email,
-        vip: false
-      });
-
-      alert("Registration successful!");
-      window.location.href = "login.html";
-
-    } catch (error) {
-      alert("Error: " + error.message);
-    }
-  });
-</script>
-
+  <script src="js/auth.js"></script>
 </body>
 </html>
